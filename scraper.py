@@ -58,4 +58,3 @@ def scrape_page():
 
 	return resort_dict
 
-print(scrape_page())
