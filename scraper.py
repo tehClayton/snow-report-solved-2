@@ -42,18 +42,18 @@ def scrape_page():
 		open_lifts_str = resort_row.find_all('td', class_='open_lifts')[0].text.replace(' ', '')
 		open_lifts_str = f'0{open_lifts_str}' if open_lifts_str[0] == '/' else open_lifts_str
 		open_lifts_list = open_lifts_str.split('/')
-		open_lifts_pct = int(open_lifts_list[0])/int(open_lifts_list[1])
+		open_lift_pct = int(open_lifts_list[0])/int(open_lifts_list[1])
 		# open trails
 		open_trails_str = resort_row.find_all('td', class_='trails')[0].text.replace(' ', '')
 		open_trails_str = f'0{open_trails_str}' if open_trails_str[0] == '/' else open_trails_str
 		open_trails_list = open_trails_str.split('/')
-		open_trails_pct = int(open_trails_list[0])/int(open_trails_list[1])
+		open_trail_pct = int(open_trails_list[0])/int(open_trails_list[1])
 		resort_dict[resort_name] = {
 		'open_status': open_status,
 		'new_snow_24_hr': new_snow_24_hr,
 		'new_snow_72_hr': new_snow_72_hr,
-		'open_lifts_pct': open_lifts_pct,
-		'open_trails_pct': open_trails_pct
+		'open_lift_pct': open_lift_pct,
+		'open_trail_pct': open_trail_pct
 		}
 
 	return resort_dict

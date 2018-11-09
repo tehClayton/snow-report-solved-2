@@ -10,6 +10,6 @@ class SkiResort(Base):
 	open_status=Column(Boolean)
 	inches_24_hr=Column(Integer)
 	inches_72_hr=Column(Integer)
-	open_lifts_pct=Column(Float)
+	open_lift_pct=Column(Float)
 	open_trail_pct=Column(Float)
 	scrape_ts=Column(DateTime)
