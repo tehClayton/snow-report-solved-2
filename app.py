@@ -29,7 +29,7 @@ def scrape():
 			))
 
 	for resort in resort_list:
-		print(resort.resort_name)
+		print(type(resort))
 
 
 	# Return template and data
