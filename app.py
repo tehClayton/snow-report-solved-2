@@ -2,6 +2,17 @@ from flask import Flask, render_template, redirect
 import scraper
 from ski_resort import Base, SkiResort
 from datetime import datetime
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+from sqlalchemy_utils import create_database, database_exists
+from config import un, pw, uri, port
+
+conn_string = f'mysql://{un}:{pw}@{uri}:{port}/snow_report'
+if not database_exists(conn_string):
+	create_database(conn_string)
+engine = create_engine(conn_string)
+Base.metadata.create_all(engine)
+session = Session(bind=engine)
 
 app = Flask(__name__)
 
@@ -28,9 +39,8 @@ def scrape():
 			scrape_ts=scrape_ts
 			))
 
-	for resort in resort_list:
-		print(type(resort))
-
+	session.add_all(resort_list)
+	session.commit()
 
 	# Return template and data
 	return redirect('/')
