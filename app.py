@@ -2,10 +2,11 @@ from flask import Flask, render_template, redirect
 import scraper
 from ski_resort import Base, SkiResort
 from datetime import datetime
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, and_
 from sqlalchemy.orm import Session
 from sqlalchemy_utils import create_database, database_exists
 from config import un, pw, uri, port
+from sqlalchemy.sql.expression import func
 
 conn_string = f'mysql://{un}:{pw}@{uri}:{port}/snow_report'
 if not database_exists(conn_string):
@@ -19,8 +20,15 @@ app = Flask(__name__)
 @app.route("/")
 def home():
 
+	latest_scrape_ts = session.query(func.max(SkiResort.scrape_ts))
+	best_resort = session.query(SkiResort)\
+		.order_by(SkiResort.inches_24_hr.desc())\
+		.filter(and_(SkiResort.scrape_ts==latest_scrape_ts,
+			SkiResort.open_status==True)).first()
+	print(best_resort.resort_name)
+
 	# Return template and data
-	return render_template("index.html")
+	return render_template("index.html", best_resort=best_resort)
 
 
 @app.route("/scrape")

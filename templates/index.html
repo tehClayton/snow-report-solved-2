@@ -15,7 +15,16 @@
       <h1>Where to ski today</h1>
       <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Retrieve Snow Report</a></p>
     </div>
-    
+    <h3>You should go to:</h3>
+    <div class='jumbotron'>
+      <h1>{{best_resort.resort_name}}</h1>
+      <ul>
+        <li>{{best_resort.inches_24_hr}}" in the past 24 hours</li>
+        <li>{{best_resort.inches_72_hr}}" in the past 72 hours</li>
+        <li>{{'%.1f'|format(best_resort.open_lift_pct*100)}}% lifts operating</li>
+        <li>{{'%.1f'|format(best_resort.open_trail_pct*100)}}% trails open</li>
+      </ul>
+    </div>
   </div>
   </div>
 </body>
