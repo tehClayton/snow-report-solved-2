@@ -25,7 +25,6 @@ def home():
 		.order_by(SkiResort.inches_24_hr.desc())\
 		.filter(and_(SkiResort.scrape_ts==latest_scrape_ts,
 			SkiResort.open_status==True)).first()
-	print(best_resort.resort_name)
 
 	# Return template and data
 	return render_template("index.html", best_resort=best_resort)
